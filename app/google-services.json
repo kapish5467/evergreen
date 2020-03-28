@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "607820216515",
+    "firebase_url": "https://evergreen-272509.firebaseio.com",
+    "project_id": "evergreen-272509",
+    "storage_bucket": "evergreen-272509.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:607820216515:android:478c68d0d37ea1d7834a76",
+        "android_client_info": {
+          "package_name": "krunal.com.example.cameraapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "607820216515-qorc4oglsuc076tk8p4nusuiklgb030p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnGCi6vbNaqsu8M9UWr-hUuapMaU8-cEY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "607820216515-qorc4oglsuc076tk8p4nusuiklgb030p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
