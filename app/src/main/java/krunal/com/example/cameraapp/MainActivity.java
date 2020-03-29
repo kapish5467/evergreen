@@ -9,10 +9,13 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -75,13 +78,27 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseFirestore db;
 
     private String db_id;
+    private int co2= 0;
+    private int eco = 0;
+    private Handler hdlr = new Handler();
+    private ProgressBar CO2_bar;
+    private ProgressBar eco_bar;
 
+    
     private FloatingActionButton mClear,mSave,mShare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+	Button Bill_btn= (Button) findViewById(R.id.startCamera);
+	ImageButton Share_btn = (ImageButton) findViewById(R.id.share_btn);
+        ImageButton Sync_btn= (ImageButton) findViewById(R.id.sync_btn);
+        CO2_bar= (ProgressBar)findViewById(R.id.CO2_bar);
+        eco_bar= (ProgressBar)findViewById(R.id.Eco_bar);
+        co2=CO2_bar.getProgress();
+        eco=eco_bar.getProgress();
 
         // Update database
         db = FirebaseFirestore.getInstance();
@@ -159,6 +176,45 @@ public class MainActivity extends AppCompatActivity {
                 launchCamera();
             }
         });
+         new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if ((co2)<100)
+                {
+                    co2 = 50;
+                    hdlr.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            CO2_bar.setProgress(co2);
+                        }
+                    });
+                    try {
+                        // Sleep for 100 milliseconds to show the progress slowly.
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if ((eco)<100)
+                {
+                    eco = 90;
+                    hdlr.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            CO2_bar.setProgress(eco);
+                        }
+                    });
+                    try {
+                        // Sleep for 100 milliseconds to show the progress slowly.
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        }).start();
+
     }
 
     /** Called when the user touches the button */

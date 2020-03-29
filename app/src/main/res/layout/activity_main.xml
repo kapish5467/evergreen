@@ -34,28 +34,34 @@
     app:srcCompat="@android:drawable/ic_dialog_dialer" />
 
     <ProgressBar
-    android:id="@+id/CO2_bar"
-    style="?android:attr/progressBarStyle"
-    android:layout_width="212dp"
-    android:layout_height="246dp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.0"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintVertical_bias="0.237" />
+        android:id="@+id/CO2_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="212dp"
+        android:layout_height="246dp"
+        android:max="100"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.237"
+        android:progress="10"
+        android:progressDrawable="@drawable/circle"/>
 
     <ProgressBar
-    android:id="@+id/Eco_bar"
-    style="?android:attr/progressBarStyle"
-    android:layout_width="195dp"
-    android:layout_height="246dp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="1.0"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintVertical_bias="0.236" />
+        android:id="@+id/Eco_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="195dp"
+        android:layout_height="246dp"
+        android:max="100"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.236"
+        android:progress="10"
+        android:progressDrawable="@drawable/circle"/>
 
     <TextView
     android:id="@+id/co2_txt"
