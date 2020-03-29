@@ -54,6 +54,11 @@ public class MainActivity extends AppCompatActivity {
     private Button mStartCamera;
 
     private String mTempPhotoPath;
+    private int co2= 0;
+    private int eco = 0;
+    private Handler hdlr = new Handler();
+    private ProgressBar CO2_bar;
+    private ProgressBar eco_bar;
 
 
     private FloatingActionButton mClear,mSave,mShare;
@@ -62,7 +67,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        
+        Button Bill_btn= (Button) findViewById(R.id.Bill_btn);
+        ImageButton Share_btn = (ImageButton) findViewById(R.id.share_btn);
+        ImageButton Sync_btn= (ImageButton) findViewById(R.id.sync_btn);
+        CO2_bar= (ProgressBar)findViewById(R.id.CO2_bar);
+        eco_bar= (ProgressBar)findViewById(R.id.Eco_bar);
+        co2=CO2_bar.getProgress();
+        eco=eco_bar.getProgress();
+        //co2=XYZclass.get();<Call from bill class>
+        //eco=ZFDclass.get();<Call from steps>
+        
         mAppExcutor = new AppExecutor();
         mStartCamera = findViewById(R.id.startCamera);
 
@@ -81,6 +96,44 @@ public class MainActivity extends AppCompatActivity {
                 launchCamera();
             }
         });
+         new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if ((co2)<100)
+                {
+                    co2 = 50;
+                    hdlr.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            CO2_bar.setProgress(co2);
+                        }
+                    });
+                    try {
+                        // Sleep for 100 milliseconds to show the progress slowly.
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if ((eco)<100)
+                {
+                    eco = 90;
+                    hdlr.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            CO2_bar.setProgress(eco);
+                        }
+                    });
+                    try {
+                        // Sleep for 100 milliseconds to show the progress slowly.
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        }).start();
     }
 
     @Override
