@@ -83,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
     private Handler hdlr = new Handler();
     private ProgressBar CO2_bar;
     private ProgressBar eco_bar;
+    private TextView ecovalue;
+    private TextView co2value;
 
     
     private FloatingActionButton mClear,mSave,mShare;
@@ -97,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
         ImageButton Sync_btn= (ImageButton) findViewById(R.id.sync_btn);
         CO2_bar= (ProgressBar)findViewById(R.id.CO2_bar);
         eco_bar= (ProgressBar)findViewById(R.id.Eco_bar);
+	ecovalue= (TextView) findViewById(R.id.ecovalue);
+        co2value= (TextView) findViewById(R.id.co2value);
         co2=CO2_bar.getProgress();
         eco=eco_bar.getProgress();
 
@@ -176,16 +180,18 @@ public class MainActivity extends AppCompatActivity {
                 launchCamera();
             }
         });
-         new Thread(new Runnable() {
+        new Thread(new Runnable() {
             @Override
             public void run() {
-                if ((co2)<100)
+                if ((co2/(eco+co2))<100)
                 {
                     co2 = 50;
                     hdlr.post(new Runnable() {
+                        @SuppressLint("DefaultLocale")
                         @Override
                         public void run() {
                             CO2_bar.setProgress(co2);
+                            co2value.setText(String.format("%d", co2)+"%");
                         }
                     });
                     try {
@@ -195,13 +201,15 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-                if ((eco)<100)
+                if ((eco/(eco+co2))<100)
                 {
                     eco = 90;
                     hdlr.post(new Runnable() {
+                        @SuppressLint("DefaultLocale")
                         @Override
                         public void run() {
-                            CO2_bar.setProgress(eco);
+                            eco_bar.setProgress(eco);
+                            ecovalue.setText(String.format("%d", eco)+"%");
                         }
                     });
                     try {

@@ -74,6 +74,32 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintVertical_bias="0.526" />
+    
+        <TextView
+        android:id="@+id/co2value"
+        android:layout_width="50dp"
+        android:layout_height="33dp"
+        android:ems="10"
+        android:inputType="numberSigned"
+        app:layout_constraintBottom_toBottomOf="@+id/CO2_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.218"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/CO2_bar"
+        app:layout_constraintVertical_bias="0.521" />
+
+    <TextView
+        android:id="@+id/ecovalue"
+        android:layout_width="59dp"
+        android:layout_height="33dp"
+        android:ems="10"
+        android:inputType="numberSigned"
+        app:layout_constraintBottom_toBottomOf="@+id/Eco_bar"
+        app:layout_constraintEnd_toEndOf="@+id/Eco_bar"
+        app:layout_constraintHorizontal_bias="0.588"
+        app:layout_constraintStart_toStartOf="@+id/Eco_bar"
+        app:layout_constraintTop_toTopOf="@+id/Eco_bar"
+        app:layout_constraintVertical_bias="0.521" />
 
     <TextView
     android:id="@+id/Eco_txt"
@@ -133,5 +159,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.131" />
-
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="181dp"
+        android:layout_height="91dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/evergreenlogo" />
+    
 </androidx.constraintlayout.widget.ConstraintLayout>
