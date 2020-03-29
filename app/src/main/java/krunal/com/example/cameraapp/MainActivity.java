@@ -95,7 +95,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 	Button Bill_btn= (Button) findViewById(R.id.startCamera);
-	ImageButton Share_btn = (ImageButton) findViewById(R.id.share_btn);
         ImageButton Sync_btn= (ImageButton) findViewById(R.id.sync_btn);
         CO2_bar= (ProgressBar)findViewById(R.id.CO2_bar);
         eco_bar= (ProgressBar)findViewById(R.id.Eco_bar);

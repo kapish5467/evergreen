@@ -4,146 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    tools:layout_editor_absoluteY="81dp">
+    tools:context=".MainActivity">
 
     <ImageButton
-        android:id="@+id/sync_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:contentDescription="sync"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.746"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@android:drawable/ic_popup_sync"
-        android:layout_marginLeft="20dp" />
-
-    <ImageButton
-    android:id="@+id/usr_Profile_btn"
+    android:id="@+id/sync_btn"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:contentDescription="usermenu"
+    android:layout_marginStart="20dp"
+    android:contentDescription="sync"
     app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.952"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintVertical_bias="0.0"
-    app:srcCompat="@android:drawable/ic_dialog_dialer" />
-
-    <ProgressBar
-        android:id="@+id/CO2_bar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="212dp"
-        android:layout_height="246dp"
-        android:max="100"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.237"
-        android:progress="10"
-        android:progressDrawable="@drawable/circle"/>
-
-    <ProgressBar
-        android:id="@+id/Eco_bar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="195dp"
-        android:layout_height="246dp"
-        android:max="100"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.236"
-        android:progress="10"
-        android:progressDrawable="@drawable/circle"/>
-
-    <TextView
-    android:id="@+id/co2_txt"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="CO2 emission"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.169"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintVertical_bias="0.526" />
-    
-        <TextView
-        android:id="@+id/co2value"
-        android:layout_width="50dp"
-        android:layout_height="33dp"
-        android:ems="10"
-        android:inputType="numberSigned"
-        app:layout_constraintBottom_toBottomOf="@+id/CO2_bar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.218"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/CO2_bar"
-        app:layout_constraintVertical_bias="0.521" />
-
-    <TextView
-        android:id="@+id/ecovalue"
-        android:layout_width="59dp"
-        android:layout_height="33dp"
-        android:ems="10"
-        android:inputType="numberSigned"
-        app:layout_constraintBottom_toBottomOf="@+id/Eco_bar"
-        app:layout_constraintEnd_toEndOf="@+id/Eco_bar"
-        app:layout_constraintHorizontal_bias="0.588"
-        app:layout_constraintStart_toStartOf="@+id/Eco_bar"
-        app:layout_constraintTop_toTopOf="@+id/Eco_bar"
-        app:layout_constraintVertical_bias="0.521" />
-
-    <TextView
-    android:id="@+id/Eco_txt"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Eco emission"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.764"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintVertical_bias="0.525" />
-
-    <ImageButton
-    android:id="@+id/share_btn"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="1.0"
-    app:layout_constraintStart_toStartOf="@+id/usr_Profile_btn"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintVertical_bias="0.0"
-    app:srcCompat="@android:drawable/ic_menu_share"
-        android:contentDescription="TODO" />
-
-    <Button
-        android:id="@+id/startCamera"
-        android:layout_width="205dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="428dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="@string/start_camera"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.274"
-        android:onClick="sendMessage" />
-
+    app:srcCompat="@android:drawable/ic_popup_sync" />
     <TextView
         android:id="@+id/textView"
         android:layout_width="0dp"
@@ -159,15 +34,103 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.131" />
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="181dp"
-        android:layout_height="91dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/evergreenlogo" />
-    
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageButton
+    android:id="@+id/usr_Profile_btn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:contentDescription="usermenu"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.0"
+    app:srcCompat="@android:drawable/ic_dialog_dialer" />    <ProgressBar
+    android:id="@+id/CO2_bar"
+    style="?android:attr/progressBarStyleHorizontal"
+    android:layout_width="212dp"
+    android:layout_height="246dp"
+    android:max="100"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.237"
+    android:progress="70"
+    android:progressDrawable="@drawable/circle"/>    <ProgressBar
+    android:id="@+id/Eco_bar"
+    style="?android:attr/progressBarStyleHorizontal"
+    android:layout_width="195dp"
+    android:layout_height="246dp"
+    android:max="100"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="1.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.236"
+    android:progress="40"
+    android:progressDrawable="@drawable/circle"/>    <TextView
+    android:id="@+id/co2_txt"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="CO2 emission"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.169"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.526" />    <TextView
+    android:id="@+id/Eco_txt"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="CO2 reduced"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.783"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.526" />
+
+    <Button
+    android:id="@+id/startCamera"
+    android:layout_width="207dp"
+    android:layout_height="50dp"
+    android:text="Upload Bill"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.497"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.724" />    <TextView
+    android:id="@+id/co2value"
+    android:layout_width="50dp"
+    android:layout_height="33dp"
+    android:ems="10"
+    android:inputType="numberSigned"
+    app:layout_constraintBottom_toBottomOf="@+id/CO2_bar"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.218"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="@+id/CO2_bar"
+    app:layout_constraintVertical_bias="0.521" />    <TextView
+    android:id="@+id/ecovalue"
+    android:layout_width="59dp"
+    android:layout_height="33dp"
+    android:ems="10"
+    android:inputType="numberSigned"
+    app:layout_constraintBottom_toBottomOf="@+id/Eco_bar"
+    app:layout_constraintEnd_toEndOf="@+id/Eco_bar"
+    app:layout_constraintHorizontal_bias="0.588"
+    app:layout_constraintStart_toStartOf="@+id/Eco_bar"
+    app:layout_constraintTop_toTopOf="@+id/Eco_bar"
+    app:layout_constraintVertical_bias="0.521" />        <ImageView
+    android:id="@+id/imageView"
+    android:layout_width="181dp"
+    android:layout_height="91dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.0"
+    app:srcCompat="@drawable/evergreenlogo" /></androidx.constraintlayout.widget.ConstraintLayout>
