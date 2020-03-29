@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.i("Evergreen_ReadDB", "Task Sucessful");
 
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        Log.i("Evergreesn_ReadDB", "For loop");
+                        Log.i("Evergreen_ReadDB", "For loop");
 
                         db_id = document.getId();
                         Log.d("Evergreen_ReadDB", document.getId() + " => " + document.getData());
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                     Map<String, Object> user = new HashMap<>();
                     user.put("name", username);
                     user.put("gas", 0);
-                    user.put("meat", 0);
+                    //user.put("meat", 0);
 
                     // Add a new document with a generated ID
                     db.collection("users")
@@ -336,8 +336,15 @@ public class MainActivity extends AppCompatActivity {
 
     private void processTextRecognitionResult(FirebaseVisionText result) {
         String resultText = result.getText();
+        Integer gas_val = 0;
         for (FirebaseVisionText.TextBlock block: result.getTextBlocks()) {
             String blockText = block.getText();
+
+            if (blockText.contains("GALLONS")) {
+                String disp[] = blockText.split("\n");
+                Log.i("Evergreen_Block", disp[1]);
+                gas_val = Integer.valueOf(disp[1]);
+            }
             //Log.i("Evergreen_Block", blockText);
             Float blockConfidence = block.getConfidence();
             List<RecognizedLanguage> blockLanguages = block.getRecognizedLanguages();
@@ -364,6 +371,7 @@ public class MainActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         // Update the document value
         DocumentReference docIdRef = db.collection("users").document(db_id);
+        Integer finalGas_val = gas_val;
         docIdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @SuppressLint({"SetTextI18n", "DefaultLocale"})
             @Override
@@ -374,12 +382,12 @@ public class MainActivity extends AppCompatActivity {
                     if (document.exists()) {
                         Map<String, Object> user = document.getData();
                         assert user != null;
-                        user.put("meat", (Long) user.get("meat") +  10);
-                        user.put("gas", (Long) user.get("gas") +  20);
+                        //user.put("meat", (Long) user.get("meat") +  10);
+                        user.put("gas", (Long) user.get("gas") + finalGas_val);
 
                         setContentView(R.layout.activity_main);
                         TextView textView = (TextView) findViewById(R.id.textView);
-                        textView.setText(String.format("Meat: %d Gas: %d", (Long)user.get("meat"), (Long)user.get("gas")));
+                        textView.setText(String.format("Gas: %d", (Long)user.get("gas")));
 
                         // Add a new document with a generated ID
                         db.collection("users").document(db_id)
