@@ -1,6 +1,7 @@
 package krunal.com.example.cameraapp;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -21,10 +22,21 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.IgnoreExtraProperties;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
@@ -33,7 +45,10 @@ import com.google.firebase.ml.vision.text.RecognizedLanguage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /*import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -41,6 +56,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;*/
+
+@IgnoreExtraProperties
 
 public class MainActivity extends AppCompatActivity {
 
@@ -55,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
 
     private String mTempPhotoPath;
 
+    private FirebaseFirestore db;
+
+    private String db_id;
 
     private FloatingActionButton mClear,mSave,mShare;
 
@@ -62,6 +82,63 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Update database
+        db = FirebaseFirestore.getInstance();
+
+        Log.i("Evergreen_ReadDB", "DB Instance");
+
+        // Hardcoded username
+        String username = "Evergreen";
+
+        // Check if user exists
+        CollectionReference collref = db.collection("users");
+        Log.i("Evergreen_ReadDB", "Collection Ref");
+
+        Query query = collref.whereEqualTo("name", username);
+        Log.i("Evergreen_ReadDB", "Query Ref");
+
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                    Log.i("Evergreen_ReadDB", "Task Sucessful");
+
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        Log.i("Evergreesn_ReadDB", "For loop");
+
+                        db_id = document.getId();
+                        Log.d("Evergreen_ReadDB", document.getId() + " => " + document.getData());
+                    }
+                } else {
+                    Log.i("Evergreen_ReadDB", "DB not found");
+
+                    // Create a new user with a first and last name
+                    Map<String, Object> user = new HashMap<>();
+                    user.put("name", username);
+                    user.put("gas", 0);
+                    user.put("meat", 0);
+
+                    // Add a new document with a generated ID
+                    db.collection("users")
+                            .add(user)
+                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Log.d("Evergreen_CreateDB", "DocumentSnapshot added with ID: " + documentReference.getId());
+                                    db_id =  documentReference.getId();
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w("Evergreen_CreateDB", "Error adding document", e);
+                                }
+                            });
+                }
+            }
+        });
+
 
         mAppExcutor = new AppExecutor();
         mStartCamera = findViewById(R.id.startCamera);
@@ -78,10 +155,18 @@ public class MainActivity extends AppCompatActivity {
                         REQUEST_STORAGE_PERMISSION);
             } else {
                 // Launch the camera if the permission exists
+                Log.i("Evergreen_ReadDB", "Launch camera");
                 launchCamera();
             }
         });
     }
+
+    /** Called when the user touches the button */
+    public void sendMessage(View view) {
+        // Do something in response to button click
+        launchCamera();
+    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
@@ -119,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Creates a temporary image file and captures a picture to store in it.
      */
-    private void launchCamera() {
+    public void launchCamera() {
 
         // Create the capture image intent
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -194,8 +279,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void processTextRecognitionResult(FirebaseVisionText result) {
-        setContentView(R.layout.activity_main);
-        TextView textView = (TextView) findViewById(R.id.textView);
         String resultText = result.getText();
         for (FirebaseVisionText.TextBlock block: result.getTextBlocks()) {
             String blockText = block.getText();
@@ -206,8 +289,7 @@ public class MainActivity extends AppCompatActivity {
             Rect blockFrame = block.getBoundingBox();
             for (FirebaseVisionText.Line line: block.getLines()) {
                 String lineText = line.getText();
-                Log.i("Evergreen_Line", lineText);
-                textView.setText(lineText);
+                //Log.i("Evergreen_Line", lineText);
                 Float lineConfidence = line.getConfidence();
                 List<RecognizedLanguage> lineLanguages = line.getRecognizedLanguages();
                 Point[] lineCornerPoints = line.getCornerPoints();
@@ -222,6 +304,52 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
+
+        db = FirebaseFirestore.getInstance();
+        // Update the document value
+        DocumentReference docIdRef = db.collection("users").document(db_id);
+        docIdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @SuppressLint({"SetTextI18n", "DefaultLocale"})
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    assert document != null;
+                    if (document.exists()) {
+                        Map<String, Object> user = document.getData();
+                        assert user != null;
+                        user.put("meat", (Long) user.get("meat") +  10);
+                        user.put("gas", (Long) user.get("gas") +  20);
+
+                        setContentView(R.layout.activity_main);
+                        TextView textView = (TextView) findViewById(R.id.textView);
+                        textView.setText(String.format("Meat: %d Gas: %d", (Long)user.get("meat"), (Long)user.get("gas")));
+
+                        // Add a new document with a generated ID
+                        db.collection("users").document(db_id)
+                                .set(user)
+                                .addOnSuccessListener(new OnSuccessListener<Void>()  {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d("Evergreen_CreateDB", "DocumentSnapshot added with ID: " + db_id);
+                                    }
+                                })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w("Evergreen_CreateDB", "Error adding document", e);
+                                    }
+                                });
+
+                    } else {
+                        Log.d("Evergreen_UpdateDB", "Document does not exist!");
+                    }
+                } else {
+                    Log.d("Evergreen_UpdateDB", "Failed with: ", task.getException());
+                }
+            }
+        });
+
     }
 
 
